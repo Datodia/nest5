@@ -15,11 +15,15 @@ export class PostsService {
     // private userService: UsersService
   ){}
 
-  async create( userId: string, createPostDto: CreatePostDto) {
+  async create(subscription: string, userId: string, createPostDto: CreatePostDto) {
     const user = await this.userModel.findById(userId)
     if(!user) throw new NotFoundException('user not found')
+    const postsCount = user.posts.length
+    if(subscription === 'free' && postsCount >= 10) throw new BadRequestException('upgrade subscription plan')
+    if(subscription === 'premium' && postsCount >= 15) throw new BadRequestException('upgrade subscription plan')
+    if(subscription === 'pro' && postsCount >= 20) throw new BadRequestException('upgrade subscription plan')
     const newPost = await this.postModel.create({...createPostDto, user: user._id})
-    await this.userModel.findByIdAndUpdate(user._id, {$push: {posts: newPost._id}})
+    await this.userModel.findByIdAndUpdate(user._id, {$push: {posts: newPost._id }})
     return newPost
   }
 

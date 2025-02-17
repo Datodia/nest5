@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/users/schema/user.schema';
@@ -35,7 +35,9 @@ export class AuthService {
         if(!isPassEqual) throw new BadRequestException('Email or Password is invalid')
 
         const payLoad = {
-            userId: existUser._id
+            userId: existUser._id,
+            role: existUser.role,
+            subscription: existUser.subscriptionPlan
         }
         
         const accessToken = await this.jwtService.sign(payLoad, {expiresIn: '1h'})

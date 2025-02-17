@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IsAuthGuard } from 'src/auth/auth.guard';
+import { Role } from './role.decorator';
+import { RoleGuard } from 'src/guards/role.guard';
 
 @Controller('users')
 export class UsersController {
@@ -19,10 +21,10 @@ export class UsersController {
   }
 
   @Patch(':id')
-  @UseGuards(IsAuthGuard)
-  update(@Req() req, @Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  @UseGuards(IsAuthGuard, RoleGuard)
+  update(@Role() role, @Req() req, @Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
 
-    return this.usersService.update(req.userId, id, updateUserDto);
+    return this.usersService.update(role, req.userId, id, updateUserDto);
   }
 
   @Delete(':id')
