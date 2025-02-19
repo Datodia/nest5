@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { IsAuthGuard } from 'src/auth/auth.guard';
+import { IsAuthGuard } from 'src/auth/guards/auth.guard';
 import { Role } from './role.decorator';
 import { RoleGuard } from 'src/guards/role.guard';
 

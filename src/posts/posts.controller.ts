@@ -3,7 +3,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { HasUserId } from './guards/hasUserId.guard';
-import { IsAuthGuard } from 'src/auth/auth.guard';
+import { IsAuthGuard } from 'src/auth/guards/auth.guard';
 import { Subscription } from 'src/users/subscription.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
