@@ -13,7 +13,7 @@ import { EmailSenderModule } from './email-sender/email-sender.module';
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
-    MongooseModule.forRoot(process.env.MONGO_URL),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     UsersModule, 
     MailerModule.forRoot({
       transport: {
